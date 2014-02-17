@@ -157,6 +157,7 @@ void SBPLLatticePlanner::initialize(std::string name, costmap_2d::Costmap2DROS* 
 
     bool ret;
     try{
+      printf("Cell size: %d, %d\n", costmap_ros_->getCostmap()->getSizeInCellsX(), costmap_ros_->getCostmap()->getSizeInCellsY());
       ret = env_->InitializeEnv(costmap_ros_->getCostmap()->getSizeInCellsX(), // width
                                 costmap_ros_->getCostmap()->getSizeInCellsY(), // height
                                 0, // mapdata
@@ -253,6 +254,7 @@ bool SBPLLatticePlanner::makePlan(const geometry_msgs::PoseStamped& start,
   try{
     int ret = env_->SetStart(start.pose.position.x - costmap_ros_->getCostmap()->getOriginX(), start.pose.position.y - costmap_ros_->getCostmap()->getOriginY(), theta_start);
     if(ret < 0 || planner_->set_start(ret) == 0){
+	  ROS_ERROR("Costmap origin is: (%g,%g)", costmap_ros_->getCostmap()->getOriginX(), costmap_ros_->getCostmap()->getOriginY());
       ROS_ERROR("ERROR: failed to set start state\n");
       return false;
     }
@@ -265,6 +267,8 @@ bool SBPLLatticePlanner::makePlan(const geometry_msgs::PoseStamped& start,
   try{
     int ret = env_->SetGoal(goal.pose.position.x - costmap_ros_->getCostmap()->getOriginX(), goal.pose.position.y - costmap_ros_->getCostmap()->getOriginY(), theta_goal);
     if(ret < 0 || planner_->set_goal(ret) == 0){
+      ROS_ERROR("Costmap width,height: (%g,%g)", costmap_ros_->getCostmap()->getSizeInMetersX(), costmap_ros_->getCostmap()->getSizeInMetersY());
+      ROS_ERROR("Costmap cells width,height: (%g,%g)", costmap_ros_->getCostmap()->getSizeInCellsX(), costmap_ros_->getCostmap()->getSizeInCellsY());
       ROS_ERROR("ERROR: failed to set goal state\n");
       return false;
     }
