@@ -6,7 +6,7 @@ project(sbpl_lattice_planner)
 ##############################################################################
 
 set(THIS_PACKAGE_ROS_DEPS roscpp costmap_2d nav_core pluginlib 
-  geometry_msgs nav_msgs)
+  geometry_msgs nav_msgs sbpl_lattice_planner_msgs)
 find_package(catkin REQUIRED COMPONENTS
   ${THIS_PACKAGE_ROS_DEPS} message_generation)
 

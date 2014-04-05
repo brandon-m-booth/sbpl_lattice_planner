@@ -38,7 +38,7 @@
 #include <sbpl_lattice_planner/sbpl_lattice_planner.h>
 #include <pluginlib/class_list_macros.h>
 #include <nav_msgs/Path.h>
-#include <sbpl_lattice_planner/SBPLLatticePlannerStats.h>
+#include <sbpl_lattice_planner_msgs/SBPLLatticePlannerStats.h>
 
 #include <costmap_2d/inflation_layer.h>
 
@@ -194,7 +194,7 @@ void SBPLLatticePlanner::initialize(std::string name, costmap_2d::Costmap2DROS* 
 
     ROS_INFO("[sbpl_lattice_planner] Initialized successfully");
     plan_pub_ = private_nh.advertise<nav_msgs::Path>("plan", 1);
-    stats_publisher_ = private_nh.advertise<sbpl_lattice_planner::SBPLLatticePlannerStats>("sbpl_lattice_planner_stats", 1);
+    stats_publisher_ = private_nh.advertise<sbpl_lattice_planner_msgs::SBPLLatticePlannerStats>("sbpl_lattice_planner_stats", 1);
     
     initialized_ = true;
   }
@@ -217,7 +217,7 @@ void SBPLLatticePlanner::publishStats(int solution_cost, int solution_size,
                                       const geometry_msgs::PoseStamped& start, 
                                       const geometry_msgs::PoseStamped& goal){
   // Fill up statistics and publish
-  sbpl_lattice_planner::SBPLLatticePlannerStats stats;
+  sbpl_lattice_planner_msgs::SBPLLatticePlannerStats stats;
   stats.initial_epsilon = initial_epsilon_;
   stats.plan_to_first_solution = false;
   stats.final_number_of_expands = planner_->get_n_expands();
