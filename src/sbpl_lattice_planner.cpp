@@ -126,8 +126,8 @@ void SBPLLatticePlanner::initialize(std::string name, costmap_2d::Costmap2DROS* 
     }
 
 	// FREDZOR HACKZORS
-	//EnvNAVXYTHETALATConfig_t* envConfig = const_cast<EnvNAVXYTHETALATConfig_t*>(env_->GetEnvNavConfig());
-	//envConfig->NumThetaDirs = 8;
+	EnvNAVXYTHETALATConfig_t* envConfig = const_cast<EnvNAVXYTHETALATConfig_t*>(env_->GetEnvNavConfig());
+	envConfig->NumThetaDirs = 8;
 	// END HACKS
 
     // check if the costmap has an inflation layer
